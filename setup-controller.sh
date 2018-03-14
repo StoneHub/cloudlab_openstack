@@ -4468,7 +4468,7 @@ wget -O /tmp/setup/OL7.vmdk https://clemson.box.com/shared/static/tej1auv75p8kgl
 glance image-create --name OL7 --disk-format vmdk --visibility public --container-format bare < /tmp/setup/OL7.vmdk
 
 # Compute node image
-wget -O /tmp/setup/OL7.vmdk https://clemson.box.com/shared/static/ddzorp4mkgs507kfg3rmgonqlujubh49.vmdk
+wget -O /tmp/setup/OL7C.vmdk https://clemson.box.com/shared/static/ddzorp4mkgs507kfg3rmgonqlujubh49.vmdk
 glance image-create --name OL7C --disk-format vmdk --visibility public --container-format bare < /tmp/setup/OL7C.vmdk
 
 # Storgae node image
