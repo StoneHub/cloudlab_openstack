@@ -4471,10 +4471,7 @@ rm /tmp/setup/OL7.vmdk
 wget -O /tmp/setup/OL7C.vmdk https://clemson.box.com/shared/static/gn9ja477mvn1bhf8q2kl2cibvi22oyx1.vmdk
 glance image-create --name OL7C --disk-format vmdk --visibility public --container-format bare < /tmp/setup/OL7C.vmdk
 rm /tmp/setup/OL7C.vmdk
-# Storgae node image
-wget -O /tmp/setup/OL7S.vmdk https://clemson.box.com/shared/static/gtls2goowua2m05g2gqduwolbaxo79nk.vmdk
-glance image-create --name OL7S --disk-format vmdk --visibility public --container-format bare < /tmp/setup/OL7S.vmdk
-rm /tmp/setup/OL7S.vmdk
+
 
 
 
@@ -4506,6 +4503,20 @@ openstack server create --flavor m1.medium --security-group $security_id --image
 
 # See https://docs.openstack.org/mitaka/install-guide-ubuntu/launch-instance-selfservice.html
 #openstack server create --flavor m1.medium --security-group $security_id --image OL7C --nic port-id=$port_id computenode3
+
+
+glance image-show OL7 > /tmp/setup/img.txt
+
+cat /tmp/setup/img.txt | grep "| id" | cut -d ' ' -f 39>/tmp/setup/id.txt
+
+
+
+# Storgae node image
+wget -O /tmp/setup/OL7S.vmdk https://clemson.box.com/shared/static/gtls2goowua2m05g2gqduwolbaxo79nk.vmdk
+glance image-create --name OL7S --disk-format vmdk --visibility public --container-format bare < /tmp/setup/OL7S.vmdk
+rm /tmp/setup/OL7S.vmdk
+
+
 
 
 port_id=`openstack port list -f value | grep testport3 | cut -d' ' -f 1`
