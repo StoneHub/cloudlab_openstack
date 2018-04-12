@@ -4505,9 +4505,9 @@ openstack server create --flavor m1.medium --security-group $security_id --image
 #openstack server create --flavor m1.medium --security-group $security_id --image OL7C --nic port-id=$port_id computenode3
 
 
-glance image-show OL7 > /tmp/setup/img.txt
+glance image-list > /tmp/setup/img.txt 
+cat img.txt | grep "cirros-0.3.2-x86_64-uec " | cut -d ' ' -f 2 > /tmp/setup/id.txt
 
-cat /tmp/setup/img.txt | grep "| id" | cut -d ' ' -f 39>/tmp/setup/id.txt
 
 
 
