@@ -4506,7 +4506,7 @@ openstack server create --flavor m1.medium --security-group $security_id --image
 
 
 glance image-list > /tmp/setup/img.txt 
-cat img.txt | grep "cirros-0.3.2-x86_64-uec " | cut -d ' ' -f 2 > /tmp/setup/id.txt
+cat img.txt | grep "OL7 " | cut -d ' ' -f 2 > /tmp/setup/id.txt
 
 
 
