@@ -4506,9 +4506,9 @@ openstack server create --flavor m1.medium --security-group $security_id --image
 
 
 glance image-list > /tmp/setup/img.txt 
-cat img.txt | grep "OL7 " | cut -d ' ' -f 2 > /tmp/setup/id.txt
+cat /tmp/setup/img.txt | grep "OL7 " | cut -d ' ' -f 2 > /tmp/setup/id.txt
 
-glance image-delete `cat id.txt`
+glance image-delete `cat /tmp/setup/id.txt`
 
 
 # Storgae node image
