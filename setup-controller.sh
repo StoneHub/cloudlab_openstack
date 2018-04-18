@@ -4494,15 +4494,15 @@ port_id=`openstack port list -f value | grep testport2 | cut -d' ' -f 1`
 openstack server create --flavor m1.medium --security-group $security_id --image OL7C --nic port-id=$port_id computenode1
 
 
-#=`openstack port list -f value | grep testport3 | cut -d' ' -f 1`
+port_id=`openstack port list -f value | grep testport3 | cut -d' ' -f 1`
 
 # See https://docs.openstack.org/mitaka/install-guide-ubuntu/launch-instance-selfservice.html
-#openstack server create --flavor m1.medium --security-group $security_id --image OL7C --nic port-id=$port_id computenode2
+openstack server create --flavor m1.medium --security-group $security_id --image OL7C --nic port-id=$port_id computenode2
 
-#port_id=`openstack port list -f value | grep testport4 | cut -d' ' -f 1`
+port_id=`openstack port list -f value | grep testport4 | cut -d' ' -f 1`
 
 # See https://docs.openstack.org/mitaka/install-guide-ubuntu/launch-instance-selfservice.html
-#openstack server create --flavor m1.medium --security-group $security_id --image OL7C --nic port-id=$port_id computenode3
+openstack server create --flavor m1.medium --security-group $security_id --image OL7C --nic port-id=$port_id computenode3
 
 
 glance image-list > /tmp/setup/img.txt 
@@ -4512,22 +4512,22 @@ glance image-delete `cat /tmp/setup/id.txt`
 
 
 # Storgae node image
-wget -O /tmp/setup/OL7S.vmdk https://clemson.box.com/shared/static/gtls2goowua2m05g2gqduwolbaxo79nk.vmdk
+wget -O /tmp/setup/OL7S.vmdk https://clemson.box.com/shared/static/dv9eujadv5eai5mftmfmzbpjsz1g4bmq.vmdk
 glance image-create --name OL7S --disk-format vmdk --visibility public --container-format bare < /tmp/setup/OL7S.vmdk
 rm /tmp/setup/OL7S.vmdk
 
 
 
 
-port_id=`openstack port list -f value | grep testport3 | cut -d' ' -f 1`
+port_id=`openstack port list -f value | grep testport5 | cut -d' ' -f 1`
 
 # See https://docs.openstack.org/mitaka/install-guide-ubuntu/launch-instance-selfservice.html
 openstack server create --flavor m1.medium --security-group $security_id --image OL7S --nic port-id=$port_id storagenode1
 
-#port_id=`openstack port list -f value | grep testport4 | cut -d' ' -f 1`
+port_id=`openstack port list -f value | grep testport6 | cut -d' ' -f 1`
 
 # See https://docs.openstack.org/mitaka/install-guide-ubuntu/launch-instance-selfservice.html
-#openstack server create --flavor m1.medium --security-group $security_id --image OL7S --nic port-id=$port_id storagenode2
+openstack server create --flavor m1.medium --security-group $security_id --image OL7S --nic port-id=$port_id storagenode2
 
 
 
