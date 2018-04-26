@@ -4457,11 +4457,12 @@ openstack port create --network ${network_id} --fixed-ip subnet=${subnet_id},ip-
 openstack port create --network ${network_id} --fixed-ip subnet=${subnet_id},ip-address=10.11.10.22 testport2
 openstack port create --network ${network_id} --fixed-ip subnet=${subnet_id},ip-address=10.11.10.23 testport3
 openstack port create --network ${network_id} --fixed-ip subnet=${subnet_id},ip-address=10.11.10.24 testport4
+openstack port create --network ${network_id} --fixed-ip subnet=${subnet_id},ip-address=10.11.10.25 testport5
 
 
 # See https://docs.openstack.org/project-install-guide/baremetal/draft/configure-glance-images.html
-wget -O /tmp/setup/OL7.vmdk https://clemson.box.com/shared/static/tgaz4t4poo65kgvv4wat41ekk5jjzu2q.vmdk
-glance image-create --name OL7 --disk-format vmdk --visibility public --container-format bare < /tmp/setup/OL7.vmdk
+wget -O /tmp/setup/OL7P.vmdk https://clemson.box.com/shared/static/tgaz4t4poo65kgvv4wat41ekk5jjzu2q.vmdk
+glance image-create --name OL7P --disk-format vmdk --visibility public --container-format bare < /tmp/setup/OL7P.vmdk
 
 project_id=`openstack project list -f value | grep admin | cut -d' ' -f 1`
 flavor_id=`openstack flavor list -f value | grep m1.medium | cut -d' ' -f 1`
@@ -4473,26 +4474,29 @@ security_id=`openstack security group list -f value | grep $project_id | cut -d'
 port_id=`openstack port list -f value | grep testport1 | cut -d' ' -f 1`
 
 # See https://docs.openstack.org/mitaka/install-guide-ubuntu/launch-instance-selfservice.html
-openstack server create --flavor m1.medium --security-group $security_id --image OL7 --nic port-id=$port_id headnode
+openstack server create --flavor m1.medium --security-group $security_id --image OL7P --nic port-id=$port_id primary
 
 
 port_id=`openstack port list -f value | grep testport2 | cut -d' ' -f 1`
 
 # See https://docs.openstack.org/mitaka/install-guide-ubuntu/launch-instance-selfservice.html
-openstack server create --flavor m1.medium --security-group $security_id --image OL7 --nic port-id=$port_id headnode
+openstack server create --flavor m1.medium --security-group $security_id --image OL7S --nic port-id=$port_id secondary
 
 
 port_id=`openstack port list -f value | grep testport3 | cut -d' ' -f 1`
 
 # See https://docs.openstack.org/mitaka/install-guide-ubuntu/launch-instance-selfservice.html
-openstack server create --flavor m1.medium --security-group $security_id --image OL7 --nic port-id=$port_id headnode
+openstack server create --flavor m1.medium --security-group $security_id --image OL7D --nic port-id=$port_id data1
 
 port_id=`openstack port list -f value | grep testport4 | cut -d' ' -f 1`
 
 # See https://docs.openstack.org/mitaka/install-guide-ubuntu/launch-instance-selfservice.html
-openstack server create --flavor m1.medium --security-group $security_id --image OL7 --nic port-id=$port_id headnode
+openstack server create --flavor m1.medium --security-group $security_id --image OL7D --nic port-id=$port_id data2
 
+port_id=`openstack port list -f value | grep testport5 | cut -d' ' -f 1`
 
+# See https://docs.openstack.org/mitaka/install-guide-ubuntu/launch-instance-selfservice.html
+openstack server create --flavor m1.medium --security-group $security_id --image OL7D --nic port-id=$port_id data3
 
 
 
